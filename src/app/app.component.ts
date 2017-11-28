@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
-  template: `
-  <my-map></my-map>
-  <layers-list></layers-list>
-  `
+  templateUrl: './app.component.html'
 })
-export class AppComponent { }
+export class AppComponent {
+  loadedFeature = 'recipes';
+
+ }
