@@ -7,6 +7,7 @@ import { RecipeService } from '../recipe.service';
 import { FormArray } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { Recipe } from '../recipe.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -18,7 +19,7 @@ export class RecipeEditComponent implements OnInit {
   editMode = false;
   recipeForm: FormGroup;
 
-  constructor(private route: ActivatedRoute, private recipeService: RecipeService) { }
+  constructor(private route: ActivatedRoute, private recipeService: RecipeService, private router: Router) { }
 
   ngOnInit() {
     this.route.params
@@ -31,18 +32,17 @@ export class RecipeEditComponent implements OnInit {
       );
   }
 
-  onSubmit() {
-    // const newRecipe = new Recipe(
-    //   this.recipeForm.value['name'],
-    //   this.recipeForm.value['description'],
-    //   this.recipeForm.value['imagePath'],
-    //   this.recipeForm.value['ingredients']
-    // );
-    if (this.editMode) {
-      this.recipeService.updateRecipe(this.id, this.recipeForm.value);
+  onSubmit() { // по сабмиту
+    if (this.editMode) { // определяем в каком режиме находимся
+      this.recipeService.updateRecipe(this.id, this.recipeForm.value); // обновляем рецепт (редактирование)
     } else {
-      this.recipeService.addRecipe(this.recipeForm.value);
+      this.recipeService.addRecipe(this.recipeForm.value); // добавляем рецепт (новый рецепт)
     }
+    this.router.navigate(['../'], {relativeTo: this.route});
+  }
+
+  onCancel() { // при отмене
+    this.router.navigate(['../'], {relativeTo: this.route}); // возвращаемся обратно
   }
 
   onAddIngredient() {
