@@ -38,7 +38,7 @@ export class RecipeEditComponent implements OnInit {
     } else {
       this.recipeService.addRecipe(this.recipeForm.value); // добавляем рецепт (новый рецепт)
     }
-    this.router.navigate(['../'], {relativeTo: this.route});
+    this.router.navigate(['../'], {relativeTo: this.route}); // возвращаемся обратно
   }
 
   onCancel() { // при отмене
